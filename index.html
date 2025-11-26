@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <title>SISKEUDES - Login</title>
+    <meta name="description" content="Sistem Keuangan Desa - Login Portal" />
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="styleguide.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <main class="login">
+        <div class="frame">
+            <aside class="div" role="img" aria-label="Gambar latar belakang login SISKEUDES"></aside>
+            <section class="frame-2">
+                <form class="captcha" method="post" action="#" novalidate>
+                    <header class="logo">
+                        <img class="logo-pwk" src="img/logo-pwk-1.png" alt="Logo Purwakarta" />
+                        <img class="line" src="img/line-1.svg" alt="" role="presentation" />
+                        <h1 class="text-wrapper">SISKEUDES</h1>
+                    </header>
+                    <h2 class="text-wrapper-2">Login</h2>
+                    <p class="text-wrapper-3">Selamat datang di SISKEUDES.</p>
+                    <div class="username">
+                        <label for="username-input" class="text-wrapper-4">Username</label>
+                        <input type="text" id="username-input" name="username" class="frame-3" required
+                            aria-required="true" autocomplete="username" />
+                    </div>
+                    <div class="passwoord">
+                        <label for="password-input" class="text-wrapper-5">Password</label>
+                        <input type="password" id="password-input" name="password" class="frame-3" required
+                            aria-required="true" autocomplete="current-password" />
+                    </div>
+                    <img class="img" src="img/captcha.png" alt="Captcha verification image" />
+                    <button type="submit" class="signin-btn"><span class="text-wrapper-6">Sign In</span></button>
+                </form>
+                <button type="button" class="ligh-icon" aria-label="Toggle theme">
+                    <img class="vector" src="img/vector.svg" alt="" role="presentation" />
+                </button>
+            </section>
+        </div>
+    </main>
+</body>
+
+</html>

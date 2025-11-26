@@ -1,0 +1,210 @@
+/* Import Font yang mirip (Google Fonts: Roboto/Inter) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root {
+    --primary-blue: #4361ee;
+    /* Warna tombol biru */
+    --bg-gray: #e6e6e6;
+    /* Warna background input */
+    --text-dark: #333333;
+    --text-muted: #666666;
+    --radius: 8px;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f5f5f5;
+    /* Background halaman */
+}
+
+/* Container Utama untuk centering */
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Kartu Login (Frame) */
+.frame {
+    display: flex;
+    width: 1000px;
+    max-width: 100%;
+    background: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    min-height: 600px;
+}
+
+/* BAGIAN KIRI: Gambar Pemandangan */
+.div {
+    flex: 1;
+    /* Menggunakan placeholder gunung karena file gambar asli tidak dilampirkan */
+    background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)),
+        url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+/* Simulasi Teks Overlay pada Gambar (Sesuai Referensi) */
+.div::after {
+    content: "SISTEM KEUANGAN DESA\A KABUPATEN PURWAKARTA";
+    white-space: pre-wrap;
+    /* Agar \A menjadi baris baru */
+    font-size: 2rem;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 20%;
+}
+
+/* BAGIAN KANAN: Form Login */
+.frame-2 {
+    flex: 1;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+/* Header Logo */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.logo-pwk {
+    width: 40px;
+    height: auto;
+}
+
+.line {
+    height: 30px;
+    width: 1px;
+    background-color: #ddd;
+}
+
+.text-wrapper {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+/* Judul Login */
+.text-wrapper-2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: black;
+}
+
+.text-wrapper-3 {
+    color: var(--text-muted);
+    margin-bottom: 30px;
+    font-size: 1rem;
+}
+
+/* Input Fields */
+.username,
+.passwoord {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    color: var(--text-dark);
+}
+
+input.frame-3 {
+    width: 100%;
+    padding: 15px;
+    border-radius: var(--radius);
+    border: none;
+    background-color: var(--bg-gray);
+    /* Abu-abu seperti referensi */
+    font-size: 1rem;
+    transition: outline 0.2s;
+}
+
+input.frame-3:focus {
+    outline: 2px solid var(--primary-blue);
+    background-color: #fff;
+}
+
+/* Captcha Image Styling */
+.img {
+    max-width: 100%;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+
+/* Tombol Sign In */
+.signin-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--primary-blue);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.signin-btn:hover {
+    background-color: #324bc4;
+}
+
+/* Tombol Dark Mode Toggle (Pojok Kanan Atas) */
+.ligh-icon {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.ligh-icon:hover {
+    opacity: 1;
+}
+
+/* Responsiveness untuk layar HP */
+@media (max-width: 768px) {
+    .frame {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .div {
+        min-height: 200px;
+    }
+
+    .div::after {
+        font-size: 1.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .frame-2 {
+        padding: 30px;
+    }
+}
