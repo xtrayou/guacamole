@@ -100,10 +100,48 @@ body {
 
 /* Input Fields */
 .username,
-.passwoord {
+.passwoord,
+.captcha-input {
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
+}
+
+/* Captcha Container */
+.captcha-container {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.captcha-container .img {
+    flex: 1;
+    max-width: 100%;
+    border-radius: 4px;
+    margin-bottom: 0;
+    border: 1px solid #ddd;
+    padding: 0;
+    background: #f0f0f0;
+}
+
+.refresh-btn {
+    width: 40px;
+    height: 40px;
+    background-color: var(--primary-blue);
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: background 0.3s;
+    flex-shrink: 0;
+}
+
+.refresh-btn:hover {
+    background-color: #324bc4;
 }
 
 label {
@@ -133,9 +171,12 @@ input.frame-3:focus {
 .img {
     max-width: 100%;
     border-radius: 4px;
-    margin-bottom: 20px;
     border: 1px solid #ddd;
-    padding: 5px;
+}
+
+#captcha-canvas {
+    display: block;
+    cursor: default;
 }
 
 /* Tombol Sign In */
@@ -237,12 +278,6 @@ input.frame-3:focus {
   position: relative;
 }
 
-.dark-modelogin .group {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
 .dark-modelogin .logo {
   display: flex;
   align-items: center;
@@ -280,26 +315,51 @@ input.frame-3:focus {
   font-size: 1rem;
 }
 
-.dark-modelogin .group-2 {
+.dark-modelogin .username,
+.dark-modelogin .passwoord,
+.dark-modelogin .captcha-input {
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
 }
 
-.dark-modelogin .text-wrapper-4 {
-  font-weight: 600;
-  font-size: 0.9rem;
-  margin-bottom: 8px;
-  color: #ffffff;
-}
-
-.dark-modelogin .group-3 {
+.dark-modelogin .captcha-container {
   margin-bottom: 20px;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
-.dark-modelogin .text-wrapper-5 {
+.dark-modelogin .captcha-container .img {
+  flex: 1;
+  max-width: 100%;
+  border-radius: 4px;
+  margin-bottom: 0;
+  border: 1px solid #ddd;
+  padding: 0;
+  background: #f0f0f0;
+}
+
+.dark-modelogin .refresh-btn {
+  width: 40px;
+  height: 40px;
+  background-color: #4c6fff;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: background 0.3s;
+  flex-shrink: 0;
+}
+
+.dark-modelogin .refresh-btn:hover {
+  background-color: #3a5aef;
+}
+
+.dark-modelogin label {
   font-weight: 600;
   font-size: 0.9rem;
   margin-bottom: 8px;
@@ -321,14 +381,7 @@ input.frame-3:focus {
   background-color: #fff;
 }
 
-.dark-modelogin .image {
-  max-width: 100%;
-  border-radius: 4px;
-  margin-bottom: 20px;
-  border: 1px solid #ddd;
-  padding: 5px;
-}
-
+.dark-modelogin .signin-btn,
 .dark-modelogin .div-wrapper {
   width: 100%;
   padding: 15px;
@@ -342,6 +395,7 @@ input.frame-3:focus {
   transition: background 0.3s;
 }
 
+.dark-modelogin .signin-btn:hover,
 .dark-modelogin .div-wrapper:hover {
   background-color: #3a5aef;
 }
@@ -352,6 +406,7 @@ input.frame-3:focus {
   font-size: 1.1rem;
 }
 
+.dark-modelogin .ligh-icon,
 .dark-modelogin .sun-dim {
   position: absolute;
   top: 30px;
@@ -362,6 +417,7 @@ input.frame-3:focus {
   opacity: 0.8;
 }
 
+.dark-modelogin .ligh-icon:hover,
 .dark-modelogin .sun-dim:hover {
   opacity: 1;
 }
@@ -370,15 +426,6 @@ input.frame-3:focus {
   width: 24px;
   height: 24px;
   filter: brightness(0) invert(1);
-}
-
-.dark-modelogin .username,
-.dark-modelogin .passwoord {
-  margin-bottom: 0;
-}
-
-.dark-modelogin label {
-  color: #ffffff;
 }
 
 /* Responsiveness untuk Dark Mode */
