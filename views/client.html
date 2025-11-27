@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Remote Desktop</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/guacamole-common-js/all.min.js"></script>
+    <style>
+        body {
+            overflow: hidden;
+            background: black;
+        }
+
+        #display {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="display"></div>
+
+    <script>
+        const display = document.getElementById('display');
+        const guac = new Guacamole.Client(
+            new Guacamole.WebSocketTunnel('/guaclite')
+        );
+
+        display.appendChild(guac.getDisplay().getElement());
+
+        guac.onerror = function (error) {
+            console.error(error);
+            alert('Connection error: ' + error.message);
+        };
+
+        guac.onstatechange = function (state) {
+            console.log('State: ' + state);
+        };
+
+        // Mouse
+        const mouse = new Guacamole.Mouse(guac.getDisplay().getElement());
+        mouse.onmousedown = mouse.onmouseup = mouse.onmousemove = function (mouseState) {
+            guac.sendMouseState(mouseState);
+        };
+
+        // Keyboard
+        const keyboard = new Guacamole.Keyboard(document);
+        keyboard.onkeydown = function (keysym) {
+            guac.sendKeyEvent(1, keysym);
+        };
+        keyboard.onkeyup = function (keysym) {
+            guac.sendKeyEvent(0, keysym);
+        };
+
+        // Connect
+        const connectionId = window.location.pathname.split('/').pop();
+
+        fetch('/api/token/' + connectionId)
+            .then(res => res.json())
+            .then(data => {
+                if (data.token) {
+                    guac.connect('token=' + data.token);
+                } else {
+                    alert('Failed to get token');
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Error fetching token');
+            });
+
+        // Resize
+        window.onresize = function () {
+            // Send size update
+        };
+    </script>
+</body>
+
+</html>
