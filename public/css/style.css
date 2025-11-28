@@ -17,6 +17,8 @@ body {
     background-color: #ffffff;
     margin: 0;
     padding: 0;
+    overflow: hidden;
+    height: 100vh;
 }
 
 /* Container Utama untuk centering */
@@ -24,8 +26,10 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    height: 100vh;
+    width: 100vw;
     padding: 0;
+    overflow: hidden;
 }
 
 /* Kartu Login (Frame) */
@@ -37,7 +41,7 @@ body {
     border-radius: 0;
     overflow: hidden;
     box-shadow: none;
-    min-height: 100vh;
+    height: 100vh;
 }
 
 /* BAGIAN KIRI: Gambar Pemandangan */
@@ -233,12 +237,13 @@ input.frame-3:focus {
 
 .dark-modelogin {
   background: linear-gradient(1deg, rgba(10, 8, 31, 1) 11%, rgba(76, 111, 255, 1) 62%);
-  width: 100%;
-  min-height: 100vh;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
+  overflow: hidden;
 }
 
 .dark-modelogin .frame {
@@ -249,7 +254,7 @@ input.frame-3:focus {
   border-radius: 0;
   overflow: hidden;
   background: transparent;
-  min-height: 100vh;
+  height: 100vh;
 }
 
 .dark-modelogin .div {
