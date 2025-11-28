@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Guacamole</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- AdminLTE CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="/dashboard" class="nav-link"><strong>Dashboard</strong></a>
+                </li>
+            </ul>
+
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" title="Login History" onclick="showLoginHistory()">
+                        <i class="fas fa-clock" style="font-size: 1.2rem;"></i>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <div class="user-info-top"
+                        style="display: flex; align-items: center; gap: 10px; padding: 5px 15px; background: #f8f9fa; border-radius: 20px; cursor: pointer;"
+                        onclick="toggleUserDropdown()">
+                        <div class="user-avatar"
+                            style="width: 35px; height: 35px; border-radius: 50%; background: #6c757d; display: flex; align-items: center; justify-content: center; color: white;">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="user-details" style="display: flex; flex-direction: column; line-height: 1.2;">
+                            <span class="user-name" style="font-weight: 600; font-size: 0.875rem;">Admin</span>
+                            <span class="user-role" style="font-size: 0.75rem; color: #6c757d;">Admin</span>
+                        </div>
+                    </div>
+                    <div class="dropdown-menu dropdown-menu-right" id="user-dropdown"
+                        style="display: none; position: absolute; right: 0; margin-top: 5px; min-width: 180px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-radius: 8px; border: none;">
+                        <a class="dropdown-item" href="#" style="padding: 0.5rem 1.5rem;">
+                            <i class="fas fa-user-circle mr-2"></i> Profile
+                        </a>
+                        <div class="dropdown-divider" style="margin: 0.5rem 0;"></div>
+                        <a class="dropdown-item text-danger" href="/logout" style="padding: 0.5rem 1.5rem;">
+                            <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.navbar -->
+
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background: #2c3e50;">
+            <!-- Brand Logo -->
+            <a href="/dashboard" class="brand-link"
+                style="background: #2c3e50; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 15px;">
+                <img src="/img/logo-pwk-1.png" alt="SISKEUDES Logo" class="brand-image"
+                    style="height: 35px; margin-left: 10px; margin-right: 10px; opacity: 1;">
+                <span class="brand-text font-weight-light"
+                    style="color: white; font-size: 1.1rem; font-weight: 600;">SISKEUDES</span>
+            </a>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar Menu -->
+                <nav class="mt-3">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                        data-accordion="false">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active" onclick="showTab('users'); return false;"
+                                style="border-radius: 10px; margin: 5px 10px; display: flex; align-items: center;">
+                                <i class="nav-icon fas fa-users-cog" style="font-size: 1.2rem; width: 25px; text-align: center;"></i>
+                                <p style="margin: 0 0 0 10px;">User Management</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" onclick="showTab('connections'); return false;"
+                                style="margin: 5px 10px; border-radius: 10px; display: flex; align-items: center;">
+                                <i class="nav-icon fas fa-desktop" style="font-size: 1.2rem; width: 25px; text-align: center;"></i>
+                                <p style="margin: 0 0 0 10px;">RDP connection</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" onclick="showTab('mapping'); return false;"
+                                style="margin: 5px 10px; border-radius: 10px; display: flex; align-items: center;">
+                                <i class="nav-icon fas fa-link" style="font-size: 1.2rem; width: 25px; text-align: center;"></i>
+                                <p style="margin: 0 0 0 10px;">User Mapping</p>
+                            </a>
+                        </li>
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link" style="margin: 5px 10px; border-radius: 10px; display: flex; align-items: center;">
+                                <i class="nav-icon fas fa-cog" style="font-size: 1.2rem; width: 25px; text-align: center;"></i>
+                                <p style="margin: 0 0 0 10px; flex: 1; display: flex; justify-content: space-between; align-items: center;">
+                                    <span>Settings</span>
+                                    <i class="fas fa-angle-left" style="margin-left: auto;"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview" style="padding-left: 0;">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link" onclick="setTheme('light'); return false;"
+                                        style="margin: 2px 10px; border-radius: 8px; display: flex; align-items: center; padding-left: 35px;">
+                                        <i class="far fa-sun nav-icon" style="font-size: 1rem; width: 20px; text-align: center;"></i>
+                                        <p style="margin: 0 0 0 10px; font-size: 0.9rem;">Light Mode</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link" onclick="setTheme('dark'); return false;"
+                                        style="margin: 2px 10px; border-radius: 8px; display: flex; align-items: center; padding-left: 35px;">
+                                        <i class="far fa-moon nav-icon" style="font-size: 1rem; width: 20px; text-align: center;"></i>
+                                        <p style="margin: 0 0 0 10px; font-size: 0.9rem;">Dark Mode</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item" style="margin-top: 20px;">
+                            <a href="/logout" class="nav-link" style="margin: 5px 10px; border-radius: 10px; display: flex; align-items: center;">
+                                <i class="nav-icon fas fa-sign-out-alt" style="font-size: 1.2rem; width: 25px; text-align: center;"></i>
+                                <p style="margin: 0 0 0 10px;">LogOut</p>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Admin Control Center</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.content-header -->
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <!-- Info boxes -->
+                    <div class="row">
+                        <div class="col-12 col-sm-6 col-md-4">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Total Users</span>
+                                    <span class="info-box-number" id="total-users">4</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-desktop"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">RDP Connections</span>
+                                    <span class="info-box-number" id="total-connections">3</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-warning elevation-1"><i
+                                        class="fas fa-user-check"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Active Users</span>
+                                    <span class="info-box-number" id="active-users">1</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="breadcrumb">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="7"/>
+                    <rect x="14" y="3" width="7" height="7"/>
+                    <rect x="14" y="14" width="7" height="7"/>
+                    <rect x="3" y="14" width="7" height="7"/>
+                </svg>
+                <span>Dashboard</span>
+            </div>
+
+            <h2 class="page-title">Admin Control Center</h2>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card stat-blue">
+                    <div class="stat-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="white">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">Total Users</div>
+                        <div class="stat-value" id="total-users">4</div>
+                    </div>
+                </div>
+
+                <div class="stat-card stat-green">
+                    <div class="stat-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="white">
+                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                        </svg>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">RDP Connections</div>
+                        <div class="stat-value" id="total-connections">3</div>
+                    </div>
+                </div>
+
+                <div class="stat-card stat-orange">
+                    <div class="stat-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="white">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                        </svg>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">Active Users</div>
+                        <div class="stat-value" id="active-users">1</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users Tab -->
+            <div id="tab-users" class="tab-content">
+                <div class="content-header">
+                    <h3>Users List</h3>
+                    <button class="btn-primary" onclick="showUserForm()">+ Add User</button>
+                </div>
+                <div class="card">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Role</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody hx-get="/api/users" hx-trigger="load, userCreated from:body">
+                            <tr>
+                                <td>admindesa</td>
+                                <td><span class="badge-user">USER</span></td>
+                                <td>
+                                    <button class="btn-sm btn-edit">Edit</button>
+                                    <button class="btn-sm btn-delete">Delete</button>
+                                    <button class="btn-sm">Manage Conns</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>guacadmin</td>
+                                <td><span class="badge-superadmin">SUPERADMIN</span></td>
+                                <td>
+                                    <span style="color: #6C757D;">Current User</span>
+                                    <button class="btn-sm">Manage Conns</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>sena</td>
+                                <td><span class="badge-admin">ADMIN</span></td>
+                                <td>
+                                    <button class="btn-sm btn-edit">Edit</button>
+                                    <button class="btn-sm btn-delete">Delete</button>
+                                    <button class="btn-sm">Manage Conns</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>silmi</td>
+                                <td><span class="badge-user">USER</span></td>
+                                <td>
+                                    <button class="btn-sm btn-edit">Edit</button>
+                                    <button class="btn-sm btn-delete">Delete</button>
+                                    <button class="btn-sm">Manage Conns</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Connections Tab -->
+            <div id="tab-connections" class="tab-content" style="display: none;">
+                <div class="content-header">
+                    <h3>RDP Connections</h3>
+                    <button class="btn-primary" onclick="showConnectionForm()">+ Add Connection</button>
+                </div>
+                <div class="card">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Host</th>
+                                <th>Port</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody hx-get="/api/connections" hx-trigger="load, connectionCreated from:body">
+                            <tr>
+                                <td>Server Desa 01</td>
+                                <td>192.168.1.50</td>
+                                <td>3389</td>
+                                <td><span style="color: #28C76F;">● Connected</span></td>
+                                <td>
+                                    <button class="btn-sm" style="background: #4A90E2;" onclick="editConnection('Server Desa 01')">Edit</button>
+                                    <button class="btn-sm" style="background: #E74C3C;" onclick="deleteConnection('Server Desa 01')">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Server Desa 02</td>
+                                <td>192.168.1.51</td>
+                                <td>3389</td>
+                                <td><span style="color: #28C76F;">● Connected</span></td>
+                                <td>
+                                    <button class="btn-sm" style="background: #4A90E2;" onclick="editConnection('Server Desa 02')">Edit</button>
+                                    <button class="btn-sm" style="background: #E74C3C;" onclick="deleteConnection('Server Desa 02')">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Backup Server</td>
+                                <td>192.168.1.100</td>
+                                <td>3389</td>
+                                <td><span style="color: #95A5A6;">● Disconnected</span></td>
+                                <td>
+                                    <button class="btn-sm" style="background: #4A90E2;" onclick="editConnection('Backup Server')">Edit</button>
+                                    <button class="btn-sm" style="background: #E74C3C;" onclick="deleteConnection('Backup Server')">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Mapping Tab -->
+            <div id="tab-mapping" class="tab-content" style="display: none;">
+                <div class="content-header">
+                    <h3>User Mapping</h3>
+                    <button class="btn-primary" onclick="showMappingForm()">+ Add Mapping</button>
+                </div>
+                <div class="card">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Connection</th>
+                                <th>Access Level</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>guacadmin</td>
+                                <td>Server Desa 01, Server Desa 02</td>
+                                <td><span class="badge-admin">FULL ACCESS</span></td>
+                                <td>
+                                    <button class="btn-sm" style="background: #4A90E2;" onclick="editMapping('guacadmin')">Edit</button>
+                                    <button class="btn-sm" style="background: #E74C3C;" onclick="removeMapping('guacadmin')">Remove</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>sena</td>
+                                <td>Server Desa 01</td>
+                                <td><span class="badge-user">READ ONLY</span></td>
+                                <td>
+                                    <button class="btn-sm" style="background: #4A90E2;" onclick="editMapping('sena')">Edit</button>
+                                    <button class="btn-sm" style="background: #E74C3C;" onclick="removeMapping('sena')">Remove</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>admindesa</td>
+                                <td>Server Desa 02</td>
+                                <td><span class="badge-user">READ ONLY</span></td>
+                                <td>
+                                    <button class="btn-sm" style="background: #4A90E2;" onclick="editMapping('admindesa')">Edit</button>
+                                    <button class="btn-sm" style="background: #E74C3C;" onclick="removeMapping('admindesa')">Remove</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div id="tab-settings" class="tab-content" style="display: none;">
+                <div class="content-header">
+                    <h3>Settings</h3>
+                </div>
+                <div class="card">
+                    <div style="padding: 2rem;">
+                        <h4 style="margin-bottom: 1.5rem; font-size: 1.1rem; font-weight: 600;">Appearance</h4>
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"/>
+                            </svg>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; margin-bottom: 0.25rem;">Light Mode</div>
+                                <div style="font-size: 0.875rem; color: #6C757D;">Bright theme for daytime use</div>
+                            </div>
+                            <label class="theme-switch">
+                                <input type="radio" name="theme" value="light" checked onchange="setTheme('light')">
+                                <span class="theme-slider"></span>
+                            </label>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"/>
+                            </svg>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; margin-bottom: 0.25rem;">Dark Mode</div>
+                                <div style="font-size: 0.875rem; color: #6C757D;">Dark theme for nighttime use</div>
+                            </div>
+                            <label class="theme-switch">
+                                <input type="radio" name="theme" value="dark" onchange="setTheme('dark')">
+                                <span class="theme-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Login History Modal -->
+    <div id="history-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h3 style="margin: 0;">Login History</h3>
+                <button onclick="closeHistoryModal()" style="background: transparent; border: none; cursor: pointer; font-size: 1.5rem; padding: 0; color: #6C757D;">×</button>
+            </div>
+            <div id="history-list">
+                <div style="padding: 1rem; background: #F5F7FA; border-radius: 8px; margin-bottom: 0.75rem;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <strong>guacadmin</strong>
+                        <span style="color: #28C76F; font-size: 0.875rem;">● Active</span>
+                    </div>
+                    <div style="font-size: 0.875rem; color: #6C757D;">
+                        <div>IP: 192.168.1.100</div>
+                        <div>Time: 2025-11-28 10:30:45</div>
+                    </div>
+                </div>
+                <div style="padding: 1rem; background: #F5F7FA; border-radius: 8px; margin-bottom: 0.75rem;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <strong>guacadmin</strong>
+                        <span style="color: #6C757D; font-size: 0.875rem;">● Ended</span>
+                    </div>
+                    <div style="font-size: 0.875rem; color: #6C757D;">
+                        <div>IP: 192.168.1.100</div>
+                        <div>Time: 2025-11-28 09:15:20 - 10:20:30</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching function
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.style.display = 'none';
+            });
+            
+            // Remove active class from all sidebar items
+            document.querySelectorAll('.sidebar-item').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById('tab-' + tabName).style.display = 'block';
+            
+            // Add active class to clicked sidebar item
+            event.target.closest('.sidebar-item').classList.add('active');
+        }
+
+        // Load stats on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            loadStats();
+            setInterval(loadStats, 60000);
+        });
+
+        function loadStats() {
+            fetch('/api/stats')
+                .then(res => res.json())
+                .then(data => {
+                    const totalUsers = data.totalUsers || 0;
+                    const totalConnections = data.totalConnections || 0;
+                    const activeCount = data.activeUsers || 0;
+
+                    document.getElementById('total-users').textContent = totalUsers;
+                    document.getElementById('total-connections').textContent = totalConnections;
+                    document.getElementById('active-users').textContent = activeCount;
+                })
+                .catch(err => {
+                    console.error('Error loading stats:', err);
+                    document.getElementById('total-users').textContent = '0';
+                    document.getElementById('total-connections').textContent = '0';
+                    document.getElementById('active-users').textContent = '0';
+                });
+        }
+
+        function showUserForm() {
+            alert('Add User form - Coming soon');
+        }
+
+        function showConnectionForm() {
+            alert('Add Connection form - Coming soon');
+        }
+    </script>
+
+    <!-- Edit User Modal -->
+    <div id="edit-user-modal" class="modal">
+        <div class="modal-content">
+            <h3>Edit User</h3>
+            <form id="edit-user-form" hx-put="" hx-target="#edit-user-message">
+                <div style="display: flex; flex-direction: column;">
+                    <label>Username</label>
+                    <input type="text" name="username" id="edit-username" required>
+
+                    <label>New Password (leave blank to keep current)</label>
+                    <input type="password" name="password" placeholder="New Password">
+
+                    <div style="margin-top: 1rem; display: flex; gap: 1rem;">
+                        <button type="submit">Save Changes</button>
+                        <button type="button" onclick="closeEditUserModal()"
+                            style="background: #6b7280;">Cancel</button>
+                    </div>
+                </div>
+                <div id="edit-user-message" style="margin-top: 1rem;"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirm-modal" class="modal" style="display: none;">
+        <div class="modal-content confirm-modal-content">
+            <div class="confirm-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="10" stroke="#f59e0b" stroke-width="2" />
+                    <path d="M12 8v4M12 16h.01" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" />
+                </svg>
+            </div>
+            <h3 id="confirm-title">Are you sure?</h3>
+            <p id="confirm-message">This action cannot be undone.</p>
+            <div class="confirm-actions">
+                <button type="button" class="btn-confirm" onclick="confirmAction()">Yes, Delete</button>
+                <button type="button" class="btn-cancel-confirm" onclick="closeConfirmModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ROLE_INJECTION_PLACEHOLDER
+
+        document.addEventListener('DOMContentLoaded', function () {
+            if (typeof CURRENT_ROLE !== 'undefined' && CURRENT_ROLE === 'ADMIN') {
+                const roleSelect = document.querySelector('select[name="role"]');
+                if (roleSelect) {
+                    roleSelect.value = 'user';
+                    roleSelect.style.display = 'none';
+                    roleSelect.previousElementSibling.style.display = 'none';
+                }
+            }
+        });
+
+        function openEditUserModal(id, username, role) {
+            const modal = document.getElementById('edit-user-modal');
+            const form = document.getElementById('edit-user-form');
+            const usernameInput = document.getElementById('edit-username');
+
+            form.setAttribute('hx-put', '/api/user/' + id);
+            htmx.process(form);
+
+            usernameInput.value = username;
+            modal.style.display = 'block';
+        }
+
+        function closeEditUserModal() {
+            document.getElementById('edit-user-modal').style.display = 'none';
+            document.getElementById('edit-user-message').innerHTML = '';
+        }
+
+        window.onclick = function (event) {
+            const modal = document.getElementById('edit-user-modal');
+            const confirmModal = document.getElementById('confirm-modal');
+            if (event.target == modal) {
+                closeEditUserModal();
+            }
+            if (event.target == confirmModal) {
+                closeConfirmModal();
+            }
+        }
+
+        // Confirmation Modal Functions
+        let pendingDeleteAction = null;
+
+        function showConfirmModal(title, message, callback) {
+            document.getElementById('confirm-title').textContent = title;
+            document.getElementById('confirm-message').textContent = message;
+            pendingDeleteAction = callback;
+            document.getElementById('confirm-modal').style.display = 'block';
+        }
+
+        function closeConfirmModal() {
+            document.getElementById('confirm-modal').style.display = 'none';
+            pendingDeleteAction = null;
+        }
+
+        function confirmAction() {
+            if (pendingDeleteAction) {
+                pendingDeleteAction();
+                closeConfirmModal();
+            }
+        }
+
+        // Show login history modal
+        function showLoginHistory() {
+            document.getElementById('history-modal').style.display = 'flex';
+        }
+
+        function closeHistoryModal() {
+            document.getElementById('history-modal').style.display = 'none';
+        }
+
+        // Theme switcher
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                document.body.style.background = '#1a1a2e';
+                document.body.style.color = '#fff';
+                alert('Dark mode akan segera diterapkan');
+            } else {
+                document.body.style.background = '#F5F7FA';
+                document.body.style.color = '#2D3748';
+            }
+            localStorage.setItem('theme', theme);
+        }
+
+        // Load saved theme on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const themeRadio = document.querySelector(`input[name="theme"][value="${savedTheme}"]`);
+            if (themeRadio) {
+                themeRadio.checked = true;
+            }
+            updateStats();
+        });
+
+        // Update statistics
+        function updateStats() {
+            // Count users from table
+            const userRows = document.querySelectorAll('#tab-users tbody tr');
+            document.getElementById('total-users').textContent = userRows.length;
+
+            // Count connections from table
+            const connRows = document.querySelectorAll('#tab-connections tbody tr');
+            document.getElementById('total-connections').textContent = connRows.length;
+
+            // Count active users (users with current session badge)
+            const activeUsers = document.querySelectorAll('.badge-superadmin').length;
+            document.getElementById('active-users').textContent = activeUsers;
+        }
+
+        // User Management Functions
+        function editUser(username) {
+            alert('Edit user: ' + username + '\n\nFitur edit user akan segera tersedia');
+        }
+
+        function deleteUser(username) {
+            if (confirm('Apakah Anda yakin ingin menghapus user "' + username + '"?')) {
+                alert('User "' + username + '" akan dihapus dari sistem');
+                // TODO: Implement actual delete logic
+            }
+        }
+
+        function manageConnections(username) {
+            alert('Manage connections untuk user: ' + username + '\n\nAnda akan diarahkan ke halaman User Mapping');
+            showTab('mapping');
+        }
+
+        // Connection Management Functions
+        function editConnection(name) {
+            alert('Edit connection: ' + name + '\n\nFitur edit connection akan segera tersedia');
+        }
+
+        function deleteConnection(name) {
+            if (confirm('Apakah Anda yakin ingin menghapus connection "' + name + '"?')) {
+                alert('Connection "' + name + '" akan dihapus dari sistem');
+                // TODO: Implement actual delete logic
+            }
+        }
+
+        // Mapping Management Functions
+        function editMapping(username) {
+            alert('Edit mapping untuk user: ' + username + '\n\nFitur edit mapping akan segera tersedia');
+        }
+
+        function removeMapping(username) {
+            if (confirm('Apakah Anda yakin ingin menghapus mapping untuk user "' + username + '"?')) {
+                alert('Mapping untuk user "' + username + '" akan dihapus');
+                // TODO: Implement actual remove logic
+            }
+        }
+
+        // Intercept DELETE button clicks to show custom confirmation modal
+        document.addEventListener('click', function (e) {
+            // Check if clicked element is a delete button with data-confirm
+            const deleteBtn = e.target.closest('button[hx-delete][data-confirm]');
+
+            if (deleteBtn) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const message = deleteBtn.getAttribute('data-confirm') || 'Are you sure you want to delete this?';
+
+                showConfirmModal(
+                    'Confirm Delete',
+                    message,
+                    function () {
+                        // Remove data-confirm and trigger HTMX delete
+                        deleteBtn.removeAttribute('data-confirm');
+                        htmx.trigger(deleteBtn, 'click');
+                    }
+                );
+
+                return false;
+            }
+        }, true); // Use capture phase to intercept before HTMX
+    </script>
+
+    </body>
+
+    </html>
