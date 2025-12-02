@@ -1,0 +1,58 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "username": "admindesa",
+            "role": "USER",
+            "password": "password"
+        },
+        {
+            "id": 2,
+            "username": "guacadmin",
+            "role": "SUPERADMIN",
+            "password": "password"
+        },
+        {
+            "id": 3,
+            "username": "sena",
+            "role": "ADMIN",
+            "password": "password"
+        },
+        {
+            "id": 4,
+            "username": "silmi",
+            "role": "USER",
+            "password": "password"
+        }
+    ],
+    "connections": [
+        {
+            "id": 1,
+            "name": "Windows Server 2019",
+            "host": "192.168.1.10",
+            "port": 3389,
+            "type": "rdp"
+        },
+        {
+            "id": 2,
+            "name": "Ubuntu Desktop",
+            "host": "192.168.1.11",
+            "port": 5900,
+            "type": "vnc"
+        }
+    ],
+    "mappings": [
+        {
+            "userId": 1,
+            "connectionId": 1
+        },
+        {
+            "userId": 3,
+            "connectionId": 1
+        },
+        {
+            "userId": 3,
+            "connectionId": 2
+        }
+    ]
+}
