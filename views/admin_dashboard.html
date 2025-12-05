@@ -250,7 +250,7 @@
                             </svg>
                             <div style="flex: 1;">
                                 <div style="font-weight: 600; margin-bottom: 0.25rem;">Light Mode</div>
-                                <div style="font-size: 0.875rem; color: #6C757D;">Bright theme for daytime use</div>
+                                <div style="font-size: 0.875rem; color: var(--text-gray);">Bright theme for daytime use</div>
                             </div>
                             <label class="theme-switch">
                                 <input type="radio" name="theme" value="light" checked onchange="setTheme('light')">
@@ -264,7 +264,7 @@
                             </svg>
                             <div style="flex: 1;">
                                 <div style="font-weight: 600; margin-bottom: 0.25rem;">Dark Mode</div>
-                                <div style="font-size: 0.875rem; color: #6C757D;">Dark theme for nighttime use</div>
+                                <div style="font-size: 0.875rem; color: var(--text-gray);">Dark theme for nighttime use</div>
                             </div>
                             <label class="theme-switch">
                                 <input type="radio" name="theme" value="dark" onchange="setTheme('dark')">
@@ -781,11 +781,11 @@
         // Theme switcher
         function setTheme(theme) {
             if (theme === 'dark') {
-                document.body.style.background = '#1a1a2e';
-                document.body.style.color = '#fff';
+                document.body.classList.add('dark-theme');
+                document.body.classList.remove('light-theme');
             } else {
-                document.body.style.background = '#F5F7FA';
-                document.body.style.color = '#2D3748';
+                document.body.classList.add('light-theme');
+                document.body.classList.remove('dark-theme');
             }
             localStorage.setItem('theme', theme);
         }
@@ -794,7 +794,7 @@
             const savedTheme = localStorage.getItem('theme') || 'light';
             const themeRadio = document.querySelector(`input[name="theme"][value="${savedTheme}"]`);
             if (themeRadio) themeRadio.checked = true;
-            if (savedTheme === 'dark') setTheme('dark');
+            setTheme(savedTheme);
         });
     </script>
 </div>

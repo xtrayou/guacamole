@@ -717,3 +717,256 @@ input:checked + .theme-slider {
 input:checked + .theme-slider:before {
     transform: translateX(24px);
 }
+
+/* Light Theme (Default) */
+body.light-theme {
+    background: var(--bg-gray);
+    color: var(--text-dark);
+}
+
+.light-theme .top-header {
+    background: var(--white);
+    color: var(--text-dark);
+}
+
+.light-theme .sidebar {
+    background: var(--white);
+}
+
+.light-theme .main-content {
+    background: var(--bg-gray);
+}
+
+.light-theme .card,
+.light-theme .stats-card {
+    background: var(--white);
+    color: var(--text-dark);
+    border: 1px solid var(--border-color);
+}
+
+.light-theme input,
+.light-theme select,
+.light-theme textarea {
+    background: var(--white);
+    color: var(--text-dark);
+    border: 1px solid var(--border-color);
+}
+
+.light-theme .modal-content {
+    background: var(--white);
+    color: var(--text-dark);
+}
+
+/* Dark Theme */
+body.dark-theme {
+    --bg-gray: #1a1d29;
+    --text-dark: #e2e8f0;
+    --text-gray: #94a3b8;
+    --border-color: #334155;
+    --white: #1e293b;
+    background: #1a1d29;
+    color: #e2e8f0;
+}
+
+.dark-theme .top-header {
+    background: #1e293b;
+    color: #e2e8f0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.dark-theme .logo-section h1 {
+    color: var(--primary-blue);
+}
+
+.dark-theme .header-title h2 {
+    color: #e2e8f0;
+}
+
+.dark-theme .notification-icon,
+.dark-theme .language-selector {
+    background: #334155;
+    color: #e2e8f0;
+}
+
+.dark-theme .user-avatar {
+    background: #334155;
+    color: #e2e8f0;
+}
+
+.dark-theme .user-name {
+    color: #e2e8f0;
+}
+
+.dark-theme .user-role {
+    color: #94a3b8;
+}
+
+.dark-theme .sidebar {
+    background: #1e293b;
+    border-right: 1px solid #334155;
+}
+
+.dark-theme .sidebar-item {
+    color: #94a3b8;
+}
+
+.dark-theme .sidebar-item:hover {
+    background: #334155;
+    color: #e2e8f0;
+}
+
+.dark-theme .sidebar-item.active {
+    background: var(--active-cyan);
+    color: var(--white);
+}
+
+.dark-theme .main-content {
+    background: #1a1d29;
+}
+
+.dark-theme .page-title {
+    color: #e2e8f0;
+}
+
+.dark-theme .card,
+.dark-theme .stats-card {
+    background: #1e293b;
+    color: #e2e8f0;
+    border: 1px solid #334155;
+}
+
+.dark-theme .stats-card h3 {
+    color: #e2e8f0;
+}
+
+.dark-theme .stats-number {
+    color: #e2e8f0;
+}
+
+.dark-theme .content-header h3 {
+    color: #e2e8f0;
+}
+
+.dark-theme table {
+    background: #1e293b;
+}
+
+.dark-theme th {
+    background: #334155;
+    color: #e2e8f0;
+    border-bottom: 1px solid #475569;
+}
+
+.dark-theme td {
+    background: #1e293b;
+    color: #e2e8f0;
+    border-bottom: 1px solid #334155;
+}
+
+.dark-theme input,
+.dark-theme select,
+.dark-theme textarea {
+    background: #334155;
+    color: #e2e8f0;
+    border: 1px solid #475569;
+}
+
+.dark-theme input:focus,
+.dark-theme select:focus,
+.dark-theme textarea:focus {
+    border-color: var(--primary-blue);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+.dark-theme .btn {
+    background: #334155;
+    color: #e2e8f0;
+    border: 1px solid #475569;
+}
+
+.dark-theme .btn:hover {
+    background: #475569;
+}
+
+.dark-theme .btn-primary {
+    background: var(--primary-blue);
+    color: white;
+    border: 1px solid var(--primary-blue);
+}
+
+.dark-theme .btn-primary:hover {
+    background: #3a7bc8;
+}
+
+.dark-theme .btn-edit {
+    background: #f59e0b;
+    color: white;
+    border: 1px solid #f59e0b;
+}
+
+.dark-theme .btn-edit:hover {
+    background: #d97706;
+}
+
+.dark-theme .btn-delete {
+    background: #ef4444;
+    color: white;
+    border: 1px solid #ef4444;
+}
+
+.dark-theme .btn-delete:hover {
+    background: #dc2626;
+}
+
+.dark-theme .modal {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.dark-theme .modal-content {
+    background: #1e293b;
+    color: #e2e8f0;
+    border: 1px solid #334155;
+}
+
+.dark-theme .table-footer {
+    background: #334155;
+    border-top: 1px solid #475569;
+    color: #e2e8f0;
+}
+
+.dark-theme .breadcrumb {
+    color: #94a3b8;
+}
+
+/* Badge styles for dark theme */
+.dark-theme .badge-admin {
+    background: #ef4444;
+    color: white;
+}
+
+.dark-theme .badge-user {
+    background: #10b981;
+    color: white;
+}
+
+.dark-theme .badge-superadmin {
+    background: #8b5cf6;
+    color: white;
+}
+
+/* Dark theme transitions */
+.dark-theme * {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Responsive dark theme adjustments */
+@media (max-width: 768px) {
+    .dark-theme .sidebar-nav {
+        background: #1e293b;
+    }
+    
+    .dark-theme .sidebar-item {
+        border: 1px solid #334155;
+    }
+}
